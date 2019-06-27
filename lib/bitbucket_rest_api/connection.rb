@@ -25,13 +25,16 @@ module BitBucket
     ].freeze
 
     def default_options(options={})
-      {
+      conn_options = {
           :headers => {
               USER_AGENT       => user_agent
           },
           :ssl => { :verify => false },
           :url => options.fetch(:endpoint) { BitBucket.endpoint }
       }.merge(options)
+
+      conn_options.delete(:raw)
+      conn_options
     end
 
     # Default middleware stack that uses default adapter as specified at
